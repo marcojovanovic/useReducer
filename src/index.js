@@ -1,12 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
+import { CocktailProvider } from './CocktailProject/context';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <CocktailProvider>
+      <App />
+    </CocktailProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

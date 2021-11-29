@@ -1,66 +1,70 @@
-import React, { createContext, useState } from 'react'
- 
- 
-export const CocktailContext = createContext() // izvoz za komponente
- 
-const CocktailProvider = ({children}) => {
+import React, { createContext, useState, useEffect, useCallback } from 'react';
 
-  const url =` www.thecocktaildb.com/api/json/v1/1/search.php?s=`
+export const CocktailContext = createContext(); // izvoz za komponente
 
-  const [loading, setLoading]=useState(false) 
+const CocktailProvider = ({ children }) => {
+  const url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s='
 
-  const [searchTerm, setSearchTerm]=useState('a')
+  const [loading, setLoading] = useState(false);
 
-  const [cocktails, setCocktails]=useState([])
+  const [searchTerm, setSearchTerm] = useState('a');
 
+  const [cocktails, setCocktails] = useState([]);
 
-  const fetchDrinks = async()=>{
+  
 
+  const fetchDrinks = useCallback( async () => {
     setLoading(true)
+    try {
+      const response = await fetch(`${url}${searchTerm}`)
+      const data = await response.json()
+   
+      const { drinks } = data
 
-    try{
 
-      const res = await fetch(`${url}${searchTerm}`)
+      if (drinks) {
+        const newCocktails = drinks.map((item) => {
+          const {
+            idDrink,
+            strDrink,
+            strDrinkThumb,
+            strAlcoholic,
+            strGlass,
+          } = item
 
-      const data = await res.json() 
+          return {
+            id: idDrink,
+            name: strDrink,
+            image: strDrinkThumb,
+            info: strAlcoholic,
+            glass: strGlass,
+          }
+        })
 
-      console.log(data)
+       
+        setCocktails(newCocktails)
 
-      const {drinks} = data
 
-      if(drinks){
-
+      
 
       } else {
-
-        setCocktails(false)
+        setCocktails([])
       }
-
-
-    } catch(err){
-
-      console.log(err)
+      setLoading(false)
+    } catch (error) {
+      console.log(error)
+      setLoading(false)
     }
-
-
-  }
-
-   useEffect(() => {
-     
+  },[searchTerm])
+  useEffect(() => {
     fetchDrinks()
+  }, [searchTerm,fetchDrinks])
 
-    
-   }, [searchTerm])
-
-  
-  
   return (
-    <CocktailContext.Provider
-      value={{loading, setSearchTerm, cocktails}}
-    >
+    <CocktailContext.Provider value={'hello'}>
       {children}
     </CocktailContext.Provider>
-  )
-}
- 
-export {CocktailProvider} // izvoz za index.js
+  );
+};
+
+export { CocktailProvider }; // izvoz za index.js

@@ -1,29 +1,32 @@
-import React from 'react'
-import {CocktailContext} from './context' // import contexta 
+import React,{useEffect, useContext} from 'react';
+import Cocktail from './Cocktail';
+import { CocktailContext } from './context'; // import contexta
+
 
 function CocktailList() {
+  const data = React.useContext(CocktailContext) 
+
+  console.log(data)
+
+  
 
 
-  const {cocktails, loading}=useCockatilContext()
-
-
-  if(cocktails.length < 1){
-
-    return (
-
-        <h2>No cocktails</h2>
-
-    )
-
-
+  if (cocktails.length < 1) {
+    return <h2>No cocktails</h2>;
   }
 
-
   return (
-    <div>
-      
+    <div className="section">
+      <h2 className="section-title">cocktails</h2>
+      <div className="cocktails-center">
+        {cocktails.map((item) => {
+          
+
+          return <Cocktail key={item.id} {...item} />;
+        })}
+      </div>
     </div>
-  )
+  );
 }
 
-export default CocktailList
+export default CocktailList;

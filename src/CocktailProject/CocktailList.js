@@ -1,32 +1,28 @@
-import React,{useEffect, useContext} from 'react';
-import Cocktail from './Cocktail';
-import { CocktailContext } from './context'; // import contexta
+import React from 'react'
+import Cocktail from './Cocktail'
+import Loading from './Loading'
+import { CocktailContext } from './context'
 
-
-function CocktailList() {
-  const data = React.useContext(CocktailContext) 
-
-  console.log(data)
-
-  
-
-
-  if (cocktails.length < 1) {
-    return <h2>No cocktails</h2>;
+export default function CocktailList() {
+  const { cocktails, loading } = React.useContext(CocktailContext)
+  if (loading) {
+    return <Loading/>
   }
-
+  if (cocktails.length < 1) {
+    return (
+      <h2 className='section-title'>
+        no cocktails matched your search criteria
+      </h2>
+    )
+  }
   return (
-    <div className="section">
-      <h2 className="section-title">cocktails</h2>
-      <div className="cocktails-center">
-        {cocktails.map((item) => {
-          
-
-          return <Cocktail key={item.id} {...item} />;
+    <section className='section'>
+      <h2 className='section-title'>cocktails</h2>
+      <div className='cocktails-center'>
+      {cocktails.map((item) => {
+          return <Cocktail key={item.id} {...item} />
         })}
       </div>
-    </div>
-  );
+    </section>
+  )
 }
-
-export default CocktailList;

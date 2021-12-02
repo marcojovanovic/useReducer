@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import { CocktailProvider } from './CocktailProject/context';
+import { GitHubProvider } from './CocktailProject/context';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <CocktailProvider>
+    <GitHubProvider>
       <App />
-    </CocktailProvider>
+    </GitHubProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

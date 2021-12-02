@@ -3,7 +3,7 @@ import React, { createContext, useState, useEffect, useCallback } from 'react';
 export const CocktailContext = createContext(); // izvoz za komponente
 
 const CocktailProvider = ({ children }) => {
-  const url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s='
+  const url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 
   const [loading, setLoading] = useState(false);
 
@@ -11,16 +11,13 @@ const CocktailProvider = ({ children }) => {
 
   const [cocktails, setCocktails] = useState([]);
 
-  
-
-  const fetchDrinks = useCallback( async () => {
-    setLoading(true)
+  const fetchDrinks = useCallback(async () => {
+    setLoading(true);
     try {
-      const response = await fetch(`${url}${searchTerm}`)
-      const data = await response.json()
-   
-      const { drinks } = data
+      const response = await fetch(`${url}${searchTerm}`);
+      const data = await response.json();
 
+      const { drinks } = data;
 
       if (drinks) {
         const newCocktails = drinks.map((item) => {
@@ -30,7 +27,7 @@ const CocktailProvider = ({ children }) => {
             strDrinkThumb,
             strAlcoholic,
             strGlass,
-          } = item
+          } = item;
 
           return {
             id: idDrink,
@@ -38,30 +35,25 @@ const CocktailProvider = ({ children }) => {
             image: strDrinkThumb,
             info: strAlcoholic,
             glass: strGlass,
-          }
-        })
+          };
+        });
 
-       
-        setCocktails(newCocktails)
-
-
-      
-
+        setCocktails(newCocktails);
       } else {
-        setCocktails([])
+        setCocktails([]);
       }
-      setLoading(false)
+      setLoading(false);
     } catch (error) {
-      console.log(error)
-      setLoading(false)
+      console.log(error);
+      setLoading(false);
     }
-  },[searchTerm])
+  }, [searchTerm]);
   useEffect(() => {
-    fetchDrinks()
-  }, [searchTerm,fetchDrinks])
+    fetchDrinks();
+  }, [searchTerm, fetchDrinks]);
 
   return (
-    <CocktailContext.Provider value={'hello'}>
+    <CocktailContext.Provider value={{ loading, cocktails, setSearchTerm }}>
       {children}
     </CocktailContext.Provider>
   );

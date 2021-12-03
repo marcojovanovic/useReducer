@@ -1,12 +1,12 @@
+import Home from "./HackerThemes//Home";
 
-import './App.css';
-import CocktailApp from './CocktailProject/CocktailApp';
+
 
 
 function App() {
   return (
     <div className="App">
-     <CocktailApp />
+        <Home />
     </div>
   );
 }

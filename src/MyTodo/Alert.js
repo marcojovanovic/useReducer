@@ -1,9 +1,12 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 
-function Alert() {
+
+
+function Alert({msg, show, type, removeAlert, list}) {
+
   return (
     <div>
-      
+       <p className={`alert alert-${type}`}>{msg}</p>
     </div>
   )
 }

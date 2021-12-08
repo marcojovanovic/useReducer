@@ -8,7 +8,7 @@ import {
   HANDLE_SEARCH,
 } from './actions';
 
-const reducer = (state, action) => {
+export const reducer = (state, action) => {
   if (action.type === 'SET_LOADING') {
     return { ...state, isLoading: true };
   }
@@ -51,7 +51,7 @@ const reducer = (state, action) => {
     }
   }
 
-  throw new Error('no matching action type');
+ 
 };
 
 export default reducer;

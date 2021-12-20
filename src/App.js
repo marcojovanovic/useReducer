@@ -1,4 +1,6 @@
-import Home from './MyHackerThemes/Home'
+import FeedbackApp from "./FeedbackApp/FeedbackApp";
+
+
 
 
 
@@ -6,7 +8,7 @@ import Home from './MyHackerThemes/Home'
 function App() {
   return (
     <div className="App">
-        <Home />
+     <FeedbackApp />
     </div>
   );
 }

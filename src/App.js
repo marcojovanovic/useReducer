@@ -1,4 +1,5 @@
-import FeedbackApp from "./FeedbackApp/FeedbackApp";
+import FeedApp from "./FeedApp/FeedApp";
+
 
 
 
@@ -8,7 +9,7 @@ import FeedbackApp from "./FeedbackApp/FeedbackApp";
 function App() {
   return (
     <div className="App">
-     <FeedbackApp />
+     <FeedApp />
     </div>
   );
 }

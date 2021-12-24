@@ -1,15 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { FeedbackProvider } from './FeedbackApp/context';
+import { FeedProvider } from './FeedApp/context';
 import App from './App';
 
 
 
 ReactDOM.render(
   <React.StrictMode>
-   <FeedbackProvider>
+   <FeedProvider>
       <App />
-   </FeedbackProvider>
+   </FeedProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

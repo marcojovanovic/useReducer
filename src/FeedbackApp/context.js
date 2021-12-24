@@ -2,22 +2,48 @@ import React, { createContext, useState, useEffect } from 'react';
 
 import { data } from './FeedbackData';
 
+import { v4 as uuidv4 } from 'uuid';
+
 export const FeedbackContext = createContext(); // izvoz za komponente
 
 const FeedbackProvider = ({ children }) => {
- 
-
   const [feedback, setFeedback] = useState(data);
 
-  const [text, setText]=useState('')
+  const [text, setText] = useState('');
 
+  const [selected, setSelected] = useState(10);
 
-  const handleTextChange = (e) =>{
+  const [btnDisabled, setBtnDisabled] = useState(true);
 
-    setText(e.target.value)
+  const [message, setMessage] = useState('');
 
+  const [rating, setRating] = useState('');
 
-  }
+  const [feedbackEdit, setFeedbackEdit] = useState({
+    item: {},
+    edit: false,
+  });
+
+  const editFeedback = (item) => {
+    setFeedbackEdit({ item, edit: true });
+
+    console.log(item);
+  };
+
+  const handleTextChange = (e) => {
+    if (text === '') {
+      setBtnDisabled(true);
+      setMessage(null);
+    } else if (text !== '' && text.trim().length <= 10) {
+      setMessage('text must be at least 10 character');
+      setBtnDisabled(true);
+    } else {
+      setMessage(null);
+      setBtnDisabled(false);
+    }
+
+    setText(e.target.value);
+  };
 
   /*
   const handleClick = () => {
@@ -33,27 +59,78 @@ const FeedbackProvider = ({ children }) => {
     setFeedback(delItem);
   };
 
+  // rating average
 
-  // rating average 
+  let average = feedback.reduce((acc, item) => {
+    return acc + item.rating / feedback.length;
+  }, 0);
 
-  let average = feedback.reduce((acc, item)=>{
+  average = average.toFixed(1);
 
-    return acc + item.rating / feedback.length
+  const handleChange = (e) => {
+    setSelected(+e.target.value);
+    setRating(+e.target.value);
+  };
 
-  },0)
+  const addFeedback = (newFeedback) => {
+    newFeedback.id = uuidv4();
+    console.log(newFeedback);
 
-  average = average.toFixed(1)
+    setFeedback([newFeedback, ...feedback]);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (text.trim().length > 10) {
+      const newFeedback = {
+        text: text,
+        rating: rating,
+      };
+
+      if (feedbackEdit.edit === true) {
+        updateFeedback(feedbackEdit.item.id, newFeedback);
+      } else {
+        addFeedback(newFeedback);
+      }
+    }
+  };
+
+  useEffect(() => {
+    setSelected(feedbackEdit.item.rating);
+  }, [feedbackEdit]);
+
+  // update
+
+  const updateFeedback = (id, updItem) => {
+    // console.log(id, updItem)
+
+    setFeedback(
+      feedback.map((item) => (item.id === id ? { ...item, ...updItem } : item))
+    );
+  };
 
   return (
     <FeedbackContext.Provider
       value={{
-       
         text,
         setText,
         feedback,
         handleDelete,
         average,
-        handleTextChange
+        handleTextChange,
+        setBtnDisabled,
+        btnDisabled,
+        message,
+        handleChange,
+        selected,
+        rating,
+        setRating,
+        handleSubmit,
+        feedbackEdit,
+        setFeedbackEdit,
+        editFeedback,
+        updateFeedback,
       }}
     >
       {children}

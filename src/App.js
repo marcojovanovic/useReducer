@@ -1,4 +1,5 @@
-import FeedApp from "./FeedApp/FeedApp";
+import GitHubApp from "./GitHub/GitHubApp";
+
 
 
 
@@ -9,7 +10,7 @@ import FeedApp from "./FeedApp/FeedApp";
 function App() {
   return (
     <div className="App">
-     <FeedApp />
+      <GitHubApp />
     </div>
   );
 }

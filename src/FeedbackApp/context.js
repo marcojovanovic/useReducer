@@ -74,7 +74,7 @@ const FeedbackProvider = ({ children }) => {
 
   const addFeedback = (newFeedback) => {
     newFeedback.id = uuidv4();
-    console.log(newFeedback);
+   
 
     setFeedback([newFeedback, ...feedback]);
   };
@@ -103,7 +103,7 @@ const FeedbackProvider = ({ children }) => {
   // update
 
   const updateFeedback = (id, updItem) => {
-    // console.log(id, updItem)
+
 
     setFeedback(
       feedback.map((item) => (item.id === id ? { ...item, ...updItem } : item))

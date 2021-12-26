@@ -10,7 +10,7 @@ function UserResults() {
 
 
   const {loading, users} = React.useContext(GitHubContext)
-  const {pera} = React.useContext(AlertContext) 
+  const {} = React.useContext(AlertContext) 
 
 
 

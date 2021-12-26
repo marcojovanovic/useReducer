@@ -1,6 +1,7 @@
-import React,{useEffect, useState} from 'react'
-import UserItem from '../components/layout/users/UserItem'
+import React from 'react'
+import Alert from '../components/layout/Alert'
 import UserResults from '../components/layout/users/UserResults'
+import UserSearch from '../components/layout/users/UserSearch'
 
 function Home() {
 
@@ -12,7 +13,8 @@ function Home() {
   
 
   return (<div>
-
+        <Alert />
+     <UserSearch /> 
     <UserResults />
 
   </div>)
